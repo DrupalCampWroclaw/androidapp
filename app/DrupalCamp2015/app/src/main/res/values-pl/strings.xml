@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="app_name">Drupal Camp Wrocław 2015</string>
+    <string name="app_label">Drupal Camp 2015</string>
+
+    <string name="refresh_label">Odśwież</string>
+    <string name="action_settings">Konfiguracja</string>
+
+    <string name="refresh_data">Odświeżono informacje...</string>
+
+    <string name="sessions_label">Sesje</string>
+
+</resources>

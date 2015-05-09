@@ -1,6 +1,7 @@
 package pl.drupalcampwroclaw.drupalcamp2015;
 
 import android.app.ActionBar;
+import android.app.Application;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -31,19 +32,22 @@ public class MainActivity extends ActionBarActivity {
         // Add tab - Session.
         TabHost.TabSpec tabSpec = tabHost.newTabSpec("sessions");
         tabSpec.setContent(R.id.tabSession);
-        tabSpec.setIndicator("Sessions");
+        String sessions_label = getString(R.string.sessions_label);
+        tabSpec.setIndicator(sessions_label);
         tabHost.addTab(tabSpec);
 
         // Add tab - People.
         tabSpec = tabHost.newTabSpec("people");
         tabSpec.setContent(R.id.tabPeople);
-        tabSpec.setIndicator("People");
+        String people_label = getString(R.string.people_label);
+        tabSpec.setIndicator(people_label);
         tabHost.addTab(tabSpec);
 
         // Add tab - Web site.
         tabSpec = tabHost.newTabSpec("website");
         tabSpec.setContent(R.id.tabWebSite);
-        tabSpec.setIndicator("Web Site");
+        String website_label = getString(R.string.website_label);
+        tabSpec.setIndicator(website_label);
         tabHost.addTab(tabSpec);
     }
 
@@ -61,7 +65,8 @@ public class MainActivity extends ActionBarActivity {
             // Action with ID action_refresh was selected.
             case R.id.action_refresh:
                 // @TODO: Refresh data (file JSON).
-                Toast.makeText(this, "Refresh data...", Toast.LENGTH_SHORT).show();
+                String refresh_data_message = getString(R.string.refresh_data);
+                Toast.makeText(this, refresh_data_message, Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
