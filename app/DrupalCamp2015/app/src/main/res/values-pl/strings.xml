@@ -6,7 +6,8 @@
     <string name="refresh_label">Odśwież</string>
     <string name="action_settings">Konfiguracja</string>
 
-    <string name="refresh_data">Odświeżono informacje...</string>
+    <string name="refresh_data_message">Odświeżam informacje...</string>
+    <string name="loading_sessions_message">Ładuję listę sesji...</string>
 
     <string name="sessions_label">Sesje</string>
 
