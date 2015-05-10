@@ -20,7 +20,9 @@ import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
 
-    private SessionAdapter sessions_list;
+    private SessionAdapter sessions_list_friday;
+    private SessionAdapter sessions_list_saturday;
+    private SessionAdapter sessions_list_sunday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +37,15 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void onLoadSessions() {
-        sessions_list  = new SessionAdapter(new ArrayList<Session>(), this);
-        ListView lView = (ListView) findViewById(R.id.listSession);
+        sessions_list_friday  = new SessionAdapter(new ArrayList<Session>(), this);
+        ListView lView = (ListView) findViewById(R.id.listSession_Friday);
 
-        lView.setAdapter(sessions_list);
+        lView.setAdapter(sessions_list_friday);
 
         String json_server = getString(R.string.json_server);
-        String path_session_day_1 = getString(R.string.session_json_path);
+        String path_session = getString(R.string.session_json_path);
 
-        (new AsyncListViewLoader()).execute(json_server, path_session_day_1);
+        (new AsyncListViewLoader()).execute(json_server, path_session);
     }
 
     /**
@@ -54,25 +56,25 @@ public class MainActivity extends ActionBarActivity {
         TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
         tabHost.setup();
 
-        // Add tab - Session.
-        TabHost.TabSpec tabSpec = tabHost.newTabSpec("sessions");
-        tabSpec.setContent(R.id.tabSession);
-        String sessions_label = getString(R.string.sessions_label);
-        tabSpec.setIndicator(sessions_label);
+        // Add tab - sessions in friday.
+        TabHost.TabSpec tabSpec = tabHost.newTabSpec("session_friday");
+        tabSpec.setContent(R.id.tabSession_Friday);
+        String sessions_friday_label = getString(R.string.friday);
+        tabSpec.setIndicator(sessions_friday_label);
         tabHost.addTab(tabSpec);
 
-        // Add tab - People.
-        tabSpec = tabHost.newTabSpec("people");
-        tabSpec.setContent(R.id.tabPeople);
-        String people_label = getString(R.string.people_label);
-        tabSpec.setIndicator(people_label);
+        // Add tab - sessions in saturday.
+        tabSpec = tabHost.newTabSpec("session_saturday");
+        tabSpec.setContent(R.id.tabSession_Saturday);
+        String sessions_saturday_label = getString(R.string.saturday);
+        tabSpec.setIndicator(sessions_saturday_label);
         tabHost.addTab(tabSpec);
 
-        // Add tab - Web site.
-        tabSpec = tabHost.newTabSpec("website");
-        tabSpec.setContent(R.id.tabWebSite);
-        String website_label = getString(R.string.website_label);
-        tabSpec.setIndicator(website_label);
+        // Add tab - sessions in sunday.
+        tabSpec = tabHost.newTabSpec("session_sunday");
+        tabSpec.setContent(R.id.tabSession_Sunday);
+        String sessions_sunday_label = getString(R.string.sunday);
+        tabSpec.setIndicator(sessions_sunday_label);
         tabHost.addTab(tabSpec);
     }
 
@@ -110,8 +112,8 @@ public class MainActivity extends ActionBarActivity {
             // Hide dialog.
             dialog.dismiss();
 
-            sessions_list.setItemList(result);
-            sessions_list.notifyDataSetChanged();
+            sessions_list_friday.setItemList(result);
+            sessions_list_friday.notifyDataSetChanged();
         }
 
         @Override

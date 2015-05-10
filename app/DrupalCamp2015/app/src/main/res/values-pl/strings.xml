@@ -9,6 +9,8 @@
     <string name="refresh_data_message">Odświeżam informacje...</string>
     <string name="loading_sessions_message">Ładuję listę sesji...</string>
 
-    <string name="sessions_label">Sesje</string>
+    <string name="friday">Piątek</string>
+    <string name="saturday">Sobota</string>
+    <string name="sunday">Niedziela</string>
 
 </resources>

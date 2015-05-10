@@ -27,7 +27,7 @@
                 android:layout_height="fill_parent">
 
                 <LinearLayout
-                    android:id="@+id/tabSession"
+                    android:id="@+id/tabSession_Friday"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:orientation="vertical">
@@ -35,20 +35,32 @@
                     <ListView
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:id="@+id/listSession" />
+                        android:id="@+id/listSession_Friday" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tabPeople"
+                    android:id="@+id/tabSession_Saturday"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:orientation="vertical"></LinearLayout>
+                    android:orientation="vertical">
+
+                    <ListView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/listSession_Saturday" />
+                </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tabWebSite"
+                    android:id="@+id/tabSession_Sunday"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:orientation="vertical"></LinearLayout>
+                    android:orientation="vertical">
+
+                    <ListView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/listSession_Sunday" />
+                </LinearLayout>
 
             </FrameLayout>
         </LinearLayout>

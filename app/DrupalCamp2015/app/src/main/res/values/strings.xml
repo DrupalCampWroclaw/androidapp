@@ -11,8 +11,8 @@
     <string name="refresh_data_message">Refresh data...</string>
     <string name="loading_sessions_message">Loading lists sessions...</string>
 
-    <string name="sessions_label">Sessions</string>
-    <string name="people_label">People</string>
-    <string name="website_label">Website</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
 
 </resources>
