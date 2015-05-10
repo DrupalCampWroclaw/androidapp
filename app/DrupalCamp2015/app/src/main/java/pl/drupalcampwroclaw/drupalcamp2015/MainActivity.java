@@ -102,17 +102,17 @@ public class MainActivity extends ActionBarActivity {
         return super.onContextItemSelected(item);
     }
 
-    private class AsyncListViewLoader extends AsyncTask<String, Void, List<Session>> {
+    private class AsyncListViewLoader extends AsyncTask<String, Void, ArrayList<List>> {
         private final ProgressDialog dialog = new ProgressDialog(MainActivity.this);
 
         @Override
-        protected void onPostExecute(List<Session> result) {
+        protected void onPostExecute(ArrayList<List> result) {
             super.onPostExecute(result);
 
             // Hide dialog.
             dialog.dismiss();
 
-            sessions_list_friday.setItemList(result);
+            sessions_list_friday.setItemList(result.get(0));
             sessions_list_friday.notifyDataSetChanged();
         }
 
@@ -127,8 +127,8 @@ public class MainActivity extends ActionBarActivity {
         }
 
         @Override
-        protected List<Session> doInBackground(String... params) {
-            List<Session> result = new ArrayList<Session>();
+        protected ArrayList doInBackground(String... params) {
+            ArrayList<List> result = new ArrayList<List>();
 
             try {
                 JSONParser jParser = new JSONParser();
@@ -148,6 +148,7 @@ public class MainActivity extends ActionBarActivity {
                 }
 
                 if (items_count != 0) {
+                    List<Session> session_day = new ArrayList<Session>();
                     for (int i = 0; i < items_count; i++) {
                         try {
                             // Load session.
@@ -161,12 +162,13 @@ public class MainActivity extends ActionBarActivity {
                             String language = item.getString("language");
 
                             // Add session to the list.
-                            result.add(new Session(session_name, speakers_name, time, room, language));
+                            session_day.add(new Session(session_name, speakers_name, time, room, language));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
+                    result.add(session_day);
                 }
 
                 return result;
