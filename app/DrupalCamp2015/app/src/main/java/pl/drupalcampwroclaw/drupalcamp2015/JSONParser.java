@@ -17,16 +17,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-/**
- * Created by rkandzia on 29.03.15.
- */
+
 public class JSONParser {
 
     private JSONObject jarray = null;
 
-    // @TODO: Changed address Url. Add as a parameter to the constructor JSONParser?
-    static String urlServer = "http://websitedev.dev.drupalcampwroclaw.pl";
-    private String urlJson = "";
+    private String server_json = null;
+    private String path_json = null;
 
     public JSONParser() {
     }
@@ -36,7 +33,7 @@ public class JSONParser {
      * @param pathJson
      */
     public JSONObject getJSONFromUrl(String pathJson) {
-        this.setUrlJson(pathJson);
+        this.setPathJson(pathJson);
         String urlFileJson = this.GetUrlJson();
 
         if (urlFileJson == null) {
@@ -85,28 +82,28 @@ public class JSONParser {
      * Set address server JSON.
      */
     public void setUrlServer(String url) {
-        this.urlServer = url;
+        this.server_json = url;
     }
 
     /**
      * Get address server JSON.
      */
     public String getUrlServer() {
-        return this.urlServer;
+        return this.server_json.toString();
     }
 
     /**
      * Set path Json.
      */
-    public void setUrlJson(String path) {
-        this.urlJson = path;
+    public void setPathJson(String path) {
+        this.path_json = path;
     }
 
     /**
      * Get address to file JSON.
      */
     public String GetUrlJson() {
-        return getUrlServer() + '/' +  this.urlJson;
+        return getUrlServer() + '/' +  this.path_json;
     }
 
 }

@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,7 +40,10 @@ public class MainActivity extends ActionBarActivity {
 
         lView.setAdapter(sessions_list);
 
-        (new AsyncListViewLoader()).execute();
+        String json_server = getString(R.string.json_server);
+        String path_session_day_1 = getString(R.string.session_json_path);
+
+        (new AsyncListViewLoader()).execute(json_server, path_session_day_1);
     }
 
     /**
@@ -125,19 +129,50 @@ public class MainActivity extends ActionBarActivity {
             List<Session> result = new ArrayList<Session>();
 
             try {
+                JSONParser jParser = new JSONParser();
+                // Set address server JSON.
+                jParser.setUrlServer(params[0]);
 
-                // @TODO: Load data with JSON.
-
-                for(int i = 1; i < 100; i++) {
-                    result.add(new Session("Session " + i , "John Smith", "11:00 - 12:00", "Room " + i, "en"));
+                // Load sessions.
+                JSONObject json = jParser.getJSONFromUrl(params[1]);
+                JSONArray items = null;
+                int items_count = 0;
+                try {
+                    // Load all sessions of the day
+                    items = json.getJSONArray("items");
+                    items_count = items.length();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
+                if (items_count != 0) {
+                    for (int i = 0; i < items_count; i++) {
+                        try {
+                            // Load session.
+                            JSONObject item = items.getJSONObject(i);
+
+                            // Session data.
+                            String session_name = item.getString("session_name");
+                            String speakers_name = item.getString("speaker_name");
+                            String time = item.getString("time");
+                            String room = item.getString("room");
+                            String language = item.getString("language");
+
+                            // Add session to the list.
+                            result.add(new Session(session_name, speakers_name, time, room, language));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
 
                 return result;
             }
             catch(Throwable t) {
                 t.printStackTrace();
             }
+
             return null;
         }
 
