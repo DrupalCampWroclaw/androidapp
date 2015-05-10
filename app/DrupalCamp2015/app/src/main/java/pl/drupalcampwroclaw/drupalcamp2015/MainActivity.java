@@ -20,9 +20,8 @@ import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
 
-    private SessionAdapter sessions_list_friday;
-    private SessionAdapter sessions_list_saturday;
-    private SessionAdapter sessions_list_sunday;
+    // Sessions day.
+    private List<SessionAdapter> sessions_list = new ArrayList<SessionAdapter>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +36,20 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void onLoadSessions() {
-        sessions_list_friday  = new SessionAdapter(new ArrayList<Session>(), this);
-        ListView lView = (ListView) findViewById(R.id.listSession_Friday);
 
-        lView.setAdapter(sessions_list_friday);
+        sessions_list.add(new SessionAdapter(new ArrayList<Session>(), this));      // Day 1.
+        sessions_list.add(new SessionAdapter(new ArrayList<Session>(), this));      // Day 2.
+        sessions_list.add(new SessionAdapter(new ArrayList<Session>(), this));      // Day 3.
+
+        // Lists.
+        ListView lView_friday = (ListView) findViewById(R.id.listSession_Friday);
+        ListView lView_saturday = (ListView) findViewById(R.id.listSession_Saturday);
+        ListView lView_sunday = (ListView) findViewById(R.id.listSession_Sunday);
+
+        // Set adapter for list.
+        lView_friday.setAdapter(sessions_list.get(0));
+        lView_saturday.setAdapter(sessions_list.get(1));
+        lView_sunday.setAdapter(sessions_list.get(2));
 
         String json_server = getString(R.string.json_server);
         String path_session = getString(R.string.session_json_path);
@@ -109,11 +118,22 @@ public class MainActivity extends ActionBarActivity {
         protected void onPostExecute(ArrayList<List> result) {
             super.onPostExecute(result);
 
+            // Refresh the information for lists.
+            for(int index = 0; index <= sessions_list.size()-1; index++) {
+                // Get sessions with day.
+                if (index <= (result.size()-1)) {
+                    SessionAdapter session = sessions_list.get(index);
+                    session.setItemList(result.get(index));
+                    session.notifyDataSetChanged();
+
+                    // Save changed.
+                    sessions_list.set(index, session);
+                }
+            }
+
             // Hide dialog.
             dialog.dismiss();
 
-            sessions_list_friday.setItemList(result.get(0));
-            sessions_list_friday.notifyDataSetChanged();
         }
 
         @Override
@@ -137,43 +157,51 @@ public class MainActivity extends ActionBarActivity {
 
                 // Load sessions.
                 JSONObject json = jParser.getJSONFromUrl(params[1]);
-                JSONArray items = null;
-                int items_count = 0;
-                try {
-                    // Load all sessions of the day
-                    items = json.getJSONArray("items");
-                    items_count = items.length();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                // JSONArray days = json.getJSONArray("days");
 
-                if (items_count != 0) {
-                    List<Session> session_day = new ArrayList<Session>();
-                    for (int i = 0; i < items_count; i++) {
-                        try {
-                            // Load session.
-                            JSONObject item = items.getJSONObject(i);
-
-                            // Session data.
-                            String session_name = item.getString("session_name");
-                            String speakers_name = item.getString("speaker_name");
-                            String time = item.getString("time");
-                            String room = item.getString("room");
-                            String language = item.getString("language");
-
-                            // Add session to the list.
-                            session_day.add(new Session(session_name, speakers_name, time, room, language));
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                // @TODO: 3 -> days.size();
+                for (int day = 1; day <= 3; day++) {
+                    JSONArray items = null;
+                    int items_count = 0;
+                    try {
+                        // Load all sessions of the day
+                        items = json.getJSONArray("items");
+                        items_count = items.length();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    result.add(session_day);
+
+                    if (items_count != 0) {
+                        List<Session> session_day = new ArrayList<Session>();
+                        for (int i = 0; i < items_count; i++) {
+                            try {
+                                // Load session.
+                                JSONObject item = items.getJSONObject(i);
+
+                                // Session data.
+                                String session_name = item.getString("session_name");
+                                String speakers_name = item.getString("speaker_name");
+                                String time = item.getString("time");
+                                String room = item.getString("room");
+                                String language = item.getString("language");
+
+                                // Add session to the list.
+                                session_day.add(new Session(session_name, speakers_name, time, room, language));
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        result.add(session_day);
+                    }
+                    else {
+                        result.add(null);
+                    }
                 }
 
                 return result;
             }
-            catch(Throwable t) {
+            catch(Throwable t){
                 t.printStackTrace();
             }
 
