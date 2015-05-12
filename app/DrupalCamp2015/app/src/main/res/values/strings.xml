@@ -3,16 +3,18 @@
     <string name="app_label">DrupalCamp 2015</string>
 
     <string name="json_server">http://www.websitedev.dev.drupalcampwroclaw.pl</string>
-    <string name="session_json_path">api/session_day.json</string>
+    <string name="session_json_path">api/sessions.json</string>
 
     <string name="action_settings">Settings</string>
     <string name="refresh_label">Refresh</string>
 
-    <string name="refresh_data_message">Refresh data...</string>
+    <string name="refresh_data_message">Letters have been updated</string>
     <string name="loading_sessions_message">Loading lists sessions...</string>
 
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
+
+    <string name="no_connect">No connect Internet</string>
 
 </resources>

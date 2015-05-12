@@ -6,11 +6,13 @@
     <string name="refresh_label">Odśwież</string>
     <string name="action_settings">Konfiguracja</string>
 
-    <string name="refresh_data_message">Odświeżam informacje...</string>
+    <string name="refresh_data_message">Listy zostały zaktualizowane</string>
     <string name="loading_sessions_message">Ładuję listę sesji...</string>
 
     <string name="friday">Piątek</string>
     <string name="saturday">Sobota</string>
     <string name="sunday">Niedziela</string>
+
+    <string name="no_connect">Brak połączenia z Internetem</string>
 
 </resources>

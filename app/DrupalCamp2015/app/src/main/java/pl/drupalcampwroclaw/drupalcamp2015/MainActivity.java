@@ -54,7 +54,14 @@ public class MainActivity extends ActionBarActivity {
         String json_server = getString(R.string.json_server);
         String path_session = getString(R.string.session_json_path);
 
-        (new AsyncListViewLoader()).execute(json_server, path_session);
+        ConnectionDetector connect = new ConnectionDetector(getApplicationContext());
+        if (connect.checkStatusInternet()) {
+            (new AsyncListViewLoader()).execute(json_server, path_session);
+        }
+        else {
+            String no_connect_message = getString(R.string.no_connect);
+            Toast.makeText(this, no_connect_message, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -100,9 +107,20 @@ public class MainActivity extends ActionBarActivity {
         switch (item.getItemId()) {
             // Action with ID action_refresh was selected.
             case R.id.action_refresh:
-                // @TODO: Refresh data (file JSON).
-                String refresh_data_message = getString(R.string.refresh_data_message);
-                Toast.makeText(this, refresh_data_message, Toast.LENGTH_SHORT).show();
+                // Refresh data.
+                String json_server = getString(R.string.json_server);
+                String path_session = getString(R.string.session_json_path);
+
+                ConnectionDetector connect = new ConnectionDetector(getApplicationContext());
+                if (connect.checkStatusInternet()) {
+                    (new AsyncListViewLoader()).execute(json_server, path_session);
+                }
+                else {
+                    String no_connect_message = getString(R.string.no_connect);
+                    Toast.makeText(this, no_connect_message, Toast.LENGTH_SHORT).show();
+                }
+                // String refresh_data_message = getString(R.string.refresh_data_message);
+                // Toast.makeText(this, refresh_data_message, Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
@@ -157,31 +175,33 @@ public class MainActivity extends ActionBarActivity {
 
                 // Load sessions.
                 JSONObject json = jParser.getJSONFromUrl(params[1]);
-                // JSONArray days = json.getJSONArray("days");
 
-                // @TODO: 3 -> days.size();
-                for (int day = 1; day <= 3; day++) {
-                    JSONArray items = null;
-                    int items_count = 0;
+                // All sessions (group by day).
+                JSONArray days = json.getJSONArray("sessions_data");
+
+                for (int day = 0; day <= days.length(); day++) {
+                    JSONObject items = null;
                     try {
                         // Load all sessions of the day
-                        items = json.getJSONArray("items");
-                        items_count = items.length();
+                        items = days.getJSONObject(day);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
-                    if (items_count != 0) {
+                    JSONArray ses = items.getJSONArray("sessions");
+                    int ses_count = ses.length();
+
+                    if (ses_count != 0) {
                         List<Session> session_day = new ArrayList<Session>();
-                        for (int i = 0; i < items_count; i++) {
+                        for (int i = 0; i < ses_count; i++) {
                             try {
                                 // Load session.
-                                JSONObject item = items.getJSONObject(i);
+                                JSONObject item = ses.getJSONObject(i);
 
                                 // Session data.
                                 String session_name = item.getString("session_name");
-                                String speakers_name = item.getString("speaker_name");
-                                String time = item.getString("time");
+                                String speakers_name = item.getString("speakers_name");
+                                String time = item.getString("time_start_end");
                                 String room = item.getString("room");
                                 String language = item.getString("language");
 
@@ -205,7 +225,9 @@ public class MainActivity extends ActionBarActivity {
                 t.printStackTrace();
             }
 
-            return null;
+            result.add(null);
+
+            return result;
         }
 
     }
