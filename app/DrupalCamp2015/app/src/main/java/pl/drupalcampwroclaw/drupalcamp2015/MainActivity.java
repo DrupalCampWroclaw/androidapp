@@ -1,6 +1,8 @@
 package pl.drupalcampwroclaw.drupalcamp2015;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -22,6 +24,12 @@ public class MainActivity extends ActionBarActivity {
 
     // Sessions day.
     private List<SessionAdapter> sessions_list = new ArrayList<SessionAdapter>();
+
+    // Save JSON to memory phone.
+    SharedPreference shared_json = new SharedPreference("json_sessions");
+
+    // Context.
+    Context context = MainActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +106,11 @@ public class MainActivity extends ActionBarActivity {
         switch (item.getItemId()) {
             // Action with ID action_refresh was selected.
             case R.id.action_refresh:
-                // Refresh data.
+
+                // Flag refresh lists.
+                this.refresh = true;
+
+                // Refresh list sessions.
                 this.loadListsSession();
                 break;
             default:
@@ -179,6 +191,12 @@ public class MainActivity extends ActionBarActivity {
         this.error_no = 0;
     }
 
+    /**
+     * Flag - refresh list sessions.
+     */
+    private boolean refresh = false;
+
+
     private class AsyncListViewLoader extends AsyncTask<String, Void, ArrayList<List>> {
         private final ProgressDialog dialog = new ProgressDialog(MainActivity.this);
 
@@ -205,6 +223,9 @@ public class MainActivity extends ActionBarActivity {
             // Message error.
             showError();
             clearError();
+
+            // Flag - refresh list.
+            refresh = false;
         }
 
         @Override
@@ -223,11 +244,18 @@ public class MainActivity extends ActionBarActivity {
 
             try {
                 JSONParser jParser = new JSONParser();
-                // Set address server JSON.
-                jParser.setUrlServer(params[0]);
+                JSONObject json;
 
-                // Load sessions.
-                JSONObject json = jParser.getJSONFromUrl(params[1]);
+                // Load list session with memory phone.
+                json = shared_json.getJson(context);
+
+                if (json == null || refresh == true) {
+                    // Set address server JSON.
+                    jParser.setUrlServer(params[0]);
+
+                    // Load list sessions with file JSON.
+                    json = jParser.getJSONFromUrl(params[1]);
+                }
 
                 // All sessions (group by day).
                 JSONArray days = json.getJSONArray("sessions_data");
@@ -272,6 +300,11 @@ public class MainActivity extends ActionBarActivity {
                     else {
                         result.add(null);
                     }
+                }
+
+                // Save file JSON on memory phone, if success load.
+                if (error_no == 0) {
+                    shared_json.putJson(context, json);
                 }
 
                 return result;
