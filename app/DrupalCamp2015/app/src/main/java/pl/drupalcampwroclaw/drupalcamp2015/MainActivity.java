@@ -232,7 +232,7 @@ public class MainActivity extends ActionBarActivity {
                 // All sessions (group by day).
                 JSONArray days = json.getJSONArray("sessions_data");
 
-                for (int day = 0; day <= days.length(); day++) {
+                for (int day = 0; day < days.length(); day++) {
                     JSONObject items = null;
                     try {
                         // Load all sessions of the day
