@@ -9,12 +9,16 @@
     <string name="refresh_label">Refresh</string>
 
     <string name="refresh_data_message">Letters have been updated</string>
-    <string name="loading_sessions_message">Loading lists sessions...</string>
+    <string name="loading_sessions_message">Refresh list session...</string>
 
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
 
     <string name="no_connect">No connect Internet</string>
+
+    <string name="error_connect_json">Error connecting to the server.\nTry again. Err:100</string>
+    <string name="error_parser_json">Error when loading list.\nTry again. Err:200</string>
+    <string name="error_load_json">Unable to load list.\nTry again. Err:300</string>
 
 </resources>

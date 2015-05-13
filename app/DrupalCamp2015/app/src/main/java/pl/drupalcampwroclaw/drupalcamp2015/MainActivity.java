@@ -51,17 +51,8 @@ public class MainActivity extends ActionBarActivity {
         lView_saturday.setAdapter(sessions_list.get(1));
         lView_sunday.setAdapter(sessions_list.get(2));
 
-        String json_server = getString(R.string.json_server);
-        String path_session = getString(R.string.session_json_path);
-
-        ConnectionDetector connect = new ConnectionDetector(getApplicationContext());
-        if (connect.checkStatusInternet()) {
-            (new AsyncListViewLoader()).execute(json_server, path_session);
-        }
-        else {
-            String no_connect_message = getString(R.string.no_connect);
-            Toast.makeText(this, no_connect_message, Toast.LENGTH_SHORT).show();
-        }
+        // Load sessions lists.
+        this.loadListsSession();
     }
 
     /**
@@ -108,25 +99,84 @@ public class MainActivity extends ActionBarActivity {
             // Action with ID action_refresh was selected.
             case R.id.action_refresh:
                 // Refresh data.
-                String json_server = getString(R.string.json_server);
-                String path_session = getString(R.string.session_json_path);
-
-                ConnectionDetector connect = new ConnectionDetector(getApplicationContext());
-                if (connect.checkStatusInternet()) {
-                    (new AsyncListViewLoader()).execute(json_server, path_session);
-                }
-                else {
-                    String no_connect_message = getString(R.string.no_connect);
-                    Toast.makeText(this, no_connect_message, Toast.LENGTH_SHORT).show();
-                }
-                // String refresh_data_message = getString(R.string.refresh_data_message);
-                // Toast.makeText(this, refresh_data_message, Toast.LENGTH_SHORT).show();
+                this.loadListsSession();
                 break;
             default:
                 break;
         }
 
         return super.onContextItemSelected(item);
+    }
+
+    /**
+     * Load lists sessions.
+     */
+    private void loadListsSession() {
+
+        ConnectionDetector connect = new ConnectionDetector(getApplicationContext());
+
+        if (connect.isConnectingToInternet()) {
+            // URL JSON.
+            String json_server = getString(R.string.json_server);
+            String path_session = getString(R.string.session_json_path);
+
+            // Thread.
+            (new AsyncListViewLoader()).execute(json_server, path_session);
+        }
+        else {
+            // Message no internet.
+            String no_connect_message = getString(R.string.no_connect);
+            Toast.makeText(this, no_connect_message, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    // Flag error
+    private int error_no = 0;
+
+    /**
+     * Show error.
+     */
+    private void showError() {
+        if (this.error_no == 0) {
+            return;
+        }
+
+        // Message error.
+        String message = null;
+        switch (this.error_no) {
+            case 100:
+                message = getString(R.string.error_connect_json);
+                break;
+            case 200:
+                message = getString(R.string.error_parser_json);
+                break;
+            case 300:
+                message = getString(R.string.error_load_json);
+                break;
+            default:
+        }
+
+        if (message != null) {
+            // Show toast.
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Set error number.
+     */
+    public void setError(int error) {
+        if (this.error_no == 0) {
+            this.error_no = error;
+        }
+    }
+
+    /**
+     * Clear error.
+     */
+    public void clearError() {
+        this.error_no = 0;
     }
 
     private class AsyncListViewLoader extends AsyncTask<String, Void, ArrayList<List>> {
@@ -152,6 +202,9 @@ public class MainActivity extends ActionBarActivity {
             // Hide dialog.
             dialog.dismiss();
 
+            // Message error.
+            showError();
+            clearError();
         }
 
         @Override
@@ -186,6 +239,7 @@ public class MainActivity extends ActionBarActivity {
                         items = days.getJSONObject(day);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        setError(300);
                     }
 
                     JSONArray ses = items.getJSONArray("sessions");
@@ -210,6 +264,7 @@ public class MainActivity extends ActionBarActivity {
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                setError(200);
                             }
                         }
                         result.add(session_day);
@@ -223,12 +278,14 @@ public class MainActivity extends ActionBarActivity {
             }
             catch(Throwable t){
                 t.printStackTrace();
+                setError(100);
             }
 
             result.add(null);
 
             return result;
         }
+
 
     }
 }
