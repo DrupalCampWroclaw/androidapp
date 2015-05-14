@@ -126,8 +126,9 @@ public class MainActivity extends ActionBarActivity {
     private void loadListsSession() {
 
         ConnectionDetector connect = new ConnectionDetector(getApplicationContext());
+        JSONObject json = shared_json.getJson(context);
 
-        if (connect.isConnectingToInternet()) {
+        if (connect.isConnectingToInternet() || (json != null && this.refresh == false)) {
             // URL JSON.
             String json_server = getString(R.string.json_server);
             String path_session = getString(R.string.session_json_path);
