@@ -2,7 +2,7 @@
     <string name="app_name">DrupalCamp Wroclaw 2015</string>
     <string name="app_label">DrupalCamp 2015</string>
 
-    <string name="json_server">http://www.websitedev.dev.drupalcampwroclaw.pl</string>
+    <string name="json_server">http://www.drupalcampwroclaw.pl</string>
     <string name="session_json_path">api/sessions.json</string>
 
     <string name="action_settings">Settings</string>
