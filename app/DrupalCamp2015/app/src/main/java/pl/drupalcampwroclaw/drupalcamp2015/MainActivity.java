@@ -31,6 +31,9 @@ public class MainActivity extends ActionBarActivity {
     // Context.
     Context context = MainActivity.this;
 
+    // Error message.
+    ErrorMessage error = new ErrorMessage(MainActivity.this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,54 +147,6 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    // Flag error
-    private int error_no = 0;
-
-    /**
-     * Show error.
-     */
-    private void showError() {
-        if (this.error_no == 0) {
-            return;
-        }
-
-        // Message error.
-        String message = null;
-        switch (this.error_no) {
-            case 100:
-                message = getString(R.string.error_connect_json);
-                break;
-            case 200:
-                message = getString(R.string.error_parser_json);
-                break;
-            case 300:
-                message = getString(R.string.error_load_json);
-                break;
-            default:
-        }
-
-        if (message != null) {
-            // Show toast.
-            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
-     * Set error number.
-     */
-    public void setError(int error) {
-        if (this.error_no == 0) {
-            this.error_no = error;
-        }
-    }
-
-    /**
-     * Clear error.
-     */
-    public void clearError() {
-        this.error_no = 0;
-    }
-
     /**
      * Flag - refresh list sessions.
      */
@@ -222,8 +177,8 @@ public class MainActivity extends ActionBarActivity {
             dialog.dismiss();
 
             // Message error.
-            showError();
-            clearError();
+            error.showError();
+            error.clearError();
 
             // Flag - refresh list.
             refresh = false;
@@ -268,7 +223,7 @@ public class MainActivity extends ActionBarActivity {
                         items = days.getJSONObject(day);
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        setError(300);
+                        error.setError(300);
                     }
 
                     JSONArray ses = items.getJSONArray("sessions");
@@ -293,7 +248,7 @@ public class MainActivity extends ActionBarActivity {
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                setError(200);
+                                error.setError(200);
                             }
                         }
                         result.add(session_day);
@@ -304,7 +259,7 @@ public class MainActivity extends ActionBarActivity {
                 }
 
                 // Save file JSON on memory phone, if success load.
-                if (error_no == 0) {
+                if (error.getError() == 0) {
                     shared_json.putJson(context, json);
                 }
 
@@ -312,7 +267,7 @@ public class MainActivity extends ActionBarActivity {
             }
             catch(Throwable t){
                 t.printStackTrace();
-                setError(100);
+                error.setError(100);
             }
 
             result.add(null);
