@@ -2,6 +2,7 @@ package pl.drupalcampwroclaw.drupalcamp2015;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -118,6 +119,12 @@ public class MainActivity extends ActionBarActivity {
 
                 // Refresh list sessions.
                 this.loadListsSession();
+                break;
+
+            case R.id.action_sponsors:
+                // Open activity.
+                Intent myIntent = new Intent(MainActivity.this, SponsorActivity.class);
+                MainActivity.this.startActivity(myIntent);
                 break;
             default:
                 break;
