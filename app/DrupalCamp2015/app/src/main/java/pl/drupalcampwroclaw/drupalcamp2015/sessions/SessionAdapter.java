@@ -1,4 +1,4 @@
-package pl.drupalcampwroclaw.drupalcamp2015;
+package pl.drupalcampwroclaw.drupalcamp2015.sessions;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+
+import pl.drupalcampwroclaw.drupalcamp2015.R;
 
 
 public class SessionAdapter extends ArrayAdapter<Session> {

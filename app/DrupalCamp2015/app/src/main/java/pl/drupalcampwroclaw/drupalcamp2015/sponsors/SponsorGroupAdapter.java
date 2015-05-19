@@ -1,4 +1,4 @@
-package pl.drupalcampwroclaw.drupalcamp2015;
+package pl.drupalcampwroclaw.drupalcamp2015.sponsors;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
+
+import pl.drupalcampwroclaw.drupalcamp2015.R;
 
 
 public class SponsorGroupAdapter extends ArrayAdapter<SponsorGroup> {

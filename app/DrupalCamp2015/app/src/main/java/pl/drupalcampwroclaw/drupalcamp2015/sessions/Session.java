@@ -1,4 +1,4 @@
-package pl.drupalcampwroclaw.drupalcamp2015;
+package pl.drupalcampwroclaw.drupalcamp2015.sessions;
 
 import java.io.Serializable;
 

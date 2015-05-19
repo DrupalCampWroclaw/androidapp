@@ -3,7 +3,6 @@ package pl.drupalcampwroclaw.drupalcamp2015;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -20,6 +19,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import pl.drupalcampwroclaw.drupalcamp2015.json.ConnectionDetector;
+import pl.drupalcampwroclaw.drupalcamp2015.json.JSONParser;
+import pl.drupalcampwroclaw.drupalcamp2015.others.ErrorMessage;
+import pl.drupalcampwroclaw.drupalcamp2015.sessions.Session;
+import pl.drupalcampwroclaw.drupalcamp2015.sessions.SessionAdapter;
+import pl.drupalcampwroclaw.drupalcamp2015.sponsors.SharedPreference;
 
 
 public class MainActivity extends ActionBarActivity {

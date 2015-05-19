@@ -1,4 +1,4 @@
-package pl.drupalcampwroclaw.drupalcamp2015;
+package pl.drupalcampwroclaw.drupalcamp2015.json;
 
 import android.util.Log;
 

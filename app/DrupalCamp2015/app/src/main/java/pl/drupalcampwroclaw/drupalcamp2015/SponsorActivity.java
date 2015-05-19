@@ -1,14 +1,15 @@
 package pl.drupalcampwroclaw.drupalcamp2015;
 
-import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import pl.drupalcampwroclaw.drupalcamp2015.sponsors.Sponsor;
+import pl.drupalcampwroclaw.drupalcamp2015.sponsors.SponsorGroup;
+import pl.drupalcampwroclaw.drupalcamp2015.sponsors.SponsorGroupAdapter;
 
 
 public class SponsorActivity extends ActionBarActivity {

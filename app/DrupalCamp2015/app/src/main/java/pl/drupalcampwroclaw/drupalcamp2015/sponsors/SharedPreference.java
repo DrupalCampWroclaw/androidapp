@@ -1,4 +1,4 @@
-package pl.drupalcampwroclaw.drupalcamp2015;
+package pl.drupalcampwroclaw.drupalcamp2015.sponsors;
 
 import android.content.Context;
 import android.content.SharedPreferences;

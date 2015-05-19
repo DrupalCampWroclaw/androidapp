@@ -1,7 +1,9 @@
-package pl.drupalcampwroclaw.drupalcamp2015;
+package pl.drupalcampwroclaw.drupalcamp2015.others;
 
 import android.content.Context;
 import android.widget.Toast;
+
+import pl.drupalcampwroclaw.drupalcamp2015.R;
 
 
 public class ErrorMessage {
