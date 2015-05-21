@@ -21,12 +21,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="pl.drupalcampwroclaw.drupalcamp2015.SponsorActivity"
+            android:name=".SponsorActivity"
             android:label="@string/title_activity_sponsor_form"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pl.drupalcampwroclaw.drupalcamp2015.MainActivity" />
+        </activity>
+        <activity
+            android:name=".RoomsActivity"
+            android:label="@string/title_activity_rooms" >
         </activity>
     </application>
 

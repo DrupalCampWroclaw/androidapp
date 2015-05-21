@@ -21,12 +21,13 @@
     <string name="error_parser_json">Error when loading list.\nTry again. Err:200</string>
     <string name="error_load_json">Unable to load list.\nTry again. Err:300</string>
 
-
     <string name="title_activity_sponsor_form">Sponsors</string>
     <string name="sponsor_diamond">Diamond</string>
     <string name="sponsor_gold">Gold</string>
     <string name="sponsor_bronze">Bronze</string>
     <string name="sponsor_graphics">Graphics sponsor</string>
     <string name="sponsor_prize">Prize</string>
+
+    <string name="title_activity_rooms">Rooms</string>
 
 </resources>

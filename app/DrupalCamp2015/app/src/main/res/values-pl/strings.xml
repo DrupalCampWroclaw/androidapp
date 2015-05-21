@@ -19,4 +19,13 @@
     <string name="error_parser_json">Błąd przy ładowaniu listy.\nSpróbuj ponownie. Err:200</string>
     <string name="error_load_json">Nie można załadować listy.\nSpróbuj ponownie. Err:300</string>
 
+    <string name="title_activity_sponsor_form">Sponsorzy</string>
+    <string name="sponsor_diamond">Diamentowy</string>
+    <string name="sponsor_gold">Złoty</string>
+    <string name="sponsor_bronze">Brązowy</string>
+    <string name="sponsor_graphics">Grafika</string>
+    <string name="sponsor_prize">Nagrody</string>
+
+    <string name="title_activity_rooms">Sale konferencyjne</string>
+
 </resources>
