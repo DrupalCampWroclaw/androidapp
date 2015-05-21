@@ -129,8 +129,14 @@ public class MainActivity extends ActionBarActivity {
 
             case R.id.action_sponsors:
                 // Open activity.
-                Intent myIntent = new Intent(MainActivity.this, RoomsActivity.class);
-                MainActivity.this.startActivity(myIntent);
+                Intent spIntent = new Intent(MainActivity.this, SponsorActivity.class);
+                MainActivity.this.startActivity(spIntent);
+                break;
+
+            case R.id.action_room:
+                // Open activity.
+                Intent roIntent = new Intent(MainActivity.this, RoomsActivity.class);
+                MainActivity.this.startActivity(roIntent);
                 break;
             default:
                 break;

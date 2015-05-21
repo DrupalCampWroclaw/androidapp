@@ -4,6 +4,13 @@
     <item
         android:id="@+id/action_sponsors"
         android:orderInCategory="100"
+        android:title="@string/title_activity_sponsor_form"
+        android:icon="@drawable/ic_sponsors"
+        yourapp:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_room"
+        android:orderInCategory="100"
         android:title="@string/title_activity_rooms"
         android:icon="@drawable/ic_action_map"
         yourapp:showAsAction="always" />
@@ -13,6 +20,6 @@
         android:orderInCategory="100"
         android:title="@string/refresh_label"
         android:icon="@drawable/ic_action_refresh"
-        yourapp:showAsAction="ifRoom" />
+        yourapp:showAsAction="always" />
 
 </menu>
