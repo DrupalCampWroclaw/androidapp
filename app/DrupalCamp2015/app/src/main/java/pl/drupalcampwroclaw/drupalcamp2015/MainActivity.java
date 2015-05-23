@@ -25,7 +25,7 @@ import pl.drupalcampwroclaw.drupalcamp2015.json.JSONParser;
 import pl.drupalcampwroclaw.drupalcamp2015.others.ErrorMessage;
 import pl.drupalcampwroclaw.drupalcamp2015.sessions.Session;
 import pl.drupalcampwroclaw.drupalcamp2015.sessions.SessionAdapter;
-import pl.drupalcampwroclaw.drupalcamp2015.sponsors.SharedPreference;
+import pl.drupalcampwroclaw.drupalcamp2015.others.SharedPreference;
 
 
 public class MainActivity extends ActionBarActivity {
