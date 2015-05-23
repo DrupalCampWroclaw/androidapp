@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".MainActivity"
     android:baselineAligned="false"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="40dp"
-        android:text="Group Name Sponsor"
-        android:id="@+id/textGroupSponsorView"
+        android:id="@+id/list_item_group_sponsor_title"
         android:layout_gravity="top"
         android:textAlignment="center"
         android:textIsSelectable="false"
@@ -19,11 +17,7 @@
         android:textColor="#ffffffff"
         android:gravity="center_vertical|center_horizontal"
         android:textStyle="bold"
-        android:singleLine="true" />
-
-    <ListView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listGroupSponsorView" />
+        android:singleLine="true"
+        layout="@android:layout/preference_category" />
 
 </LinearLayout>

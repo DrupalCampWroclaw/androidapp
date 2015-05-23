@@ -2,116 +2,77 @@ package pl.drupalcampwroclaw.drupalcamp2015;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import pl.drupalcampwroclaw.drupalcamp2015.sponsors.Sponsor;
-import pl.drupalcampwroclaw.drupalcamp2015.sponsors.SponsorGroup;
-import pl.drupalcampwroclaw.drupalcamp2015.sponsors.SponsorGroupAdapter;
+import pl.drupalcampwroclaw.drupalcamp2015.sponsors.InterfaceSponsor;
+import pl.drupalcampwroclaw.drupalcamp2015.sponsors.SponsorsListAdapter;
+import pl.drupalcampwroclaw.drupalcamp2015.sponsors.GroupSponsorsItem;
+import pl.drupalcampwroclaw.drupalcamp2015.sponsors.SponsorItem;
 
 
 public class SponsorActivity extends ActionBarActivity {
 
-    // All sponsors.
-    private List<SponsorGroup> sponsors_list;
-
-    ListView ListViewSponsors;
-
+    ArrayList<InterfaceSponsor> items = new ArrayList<InterfaceSponsor>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sponsors);
 
-        this.ListViewSponsors = (ListView) findViewById(R.id.listSponsorsView);
+        // Load lists sponsors.
+        this.loadListsSponsors();
 
-        // Init sponsors.
-        this.initSponsors();
+        SponsorsListAdapter adapter = new SponsorsListAdapter(this, items);
 
-        // Load lists Sponsors.
-        this.loadListSponsors();
+        ListView lView_sponsors = (ListView) findViewById(R.id.listSponsorsView);
+        lView_sponsors.setAdapter(adapter);
     }
 
-    /**
-     * Init sponsors.
-     */
-    public List<SponsorGroup> initSponsors() {
-        this.sponsors_list = new ArrayList<SponsorGroup>();
+    private ArrayList<InterfaceSponsor> loadListsSponsors() {
 
         // Diamond.
         String diamond_name = getString(R.string.sponsor_diamond);
-        SponsorGroup diamond = new SponsorGroup(diamond_name);
-
-        diamond.addSponsor(new Sponsor("Droptica"));
-
-        sponsors_list.add(diamond);
-
+        items.add(new GroupSponsorsItem(diamond_name));
+        items.add(new SponsorItem("Droptica", R.drawable.logo_droptica));
 
         // Gold.
         String gold_name = getString(R.string.sponsor_gold);
-        SponsorGroup gold = new SponsorGroup(gold_name);
-
-        gold.addSponsor(new Sponsor("BlueOK"));
-
-        sponsors_list.add(gold);
-
+        items.add(new GroupSponsorsItem(gold_name));
+        items.add(new SponsorItem("BlueOK",  R.drawable.logo_blueok));
 
         // Bronze.
         String bronze_name = getString(R.string.sponsor_bronze);
-        SponsorGroup bronze = new SponsorGroup(bronze_name);
-
-        bronze.addSponsor(new Sponsor("KeyCDN"));
-
-        sponsors_list.add(bronze);
-
-
+        items.add(new GroupSponsorsItem(bronze_name));
+        items.add(new SponsorItem("KeyCDN",  R.drawable.logo_keycdn));
 
         // Graphics sponsor.
         String graphics_name = getString(R.string.sponsor_graphics);
-        SponsorGroup graphics = new SponsorGroup(graphics_name);
-
-        graphics.addSponsor(new Sponsor("X-Coding IT Studio"));
-
-        sponsors_list.add(graphics);
-
+        items.add(new GroupSponsorsItem(graphics_name));
+        items.add(new SponsorItem("X-Coding IT Studio",  R.drawable.logo_xcoding));
 
         // Prize.
         String price_name = getString(R.string.sponsor_prize);
-        SponsorGroup prize = new SponsorGroup(price_name);
+        items.add(new GroupSponsorsItem(price_name));
+        items.add(new SponsorItem("DigitalOcean",  R.drawable.logo_digitalocean));
+        items.add(new SponsorItem("Helion.pl",  R.drawable.logo_helion));
+        items.add(new SponsorItem("JetBrains PhpStorm",  R.drawable.logo_phpstorm));
 
-        prize.addSponsor(new Sponsor("DigitalOcean"));
-        prize.addSponsor(new Sponsor("Helion.pl"));
-        prize.addSponsor(new Sponsor("JetBrains PhpStorm"));
-
-        sponsors_list.add(prize);
-
-
-        return this.sponsors_list;
+        return this.items;
     }
 
-    /**
-     * Load list Sponsors.
-     */
-    private void loadListSponsors() {
-        // Load lists.
-        ListView lView_sponsors = (ListView) findViewById(R.id.listSponsorsView);
-
-        if (this.sponsors_list.size() > 0) {
-
-            for (int i = 0; i < this.sponsors_list.size(); i++) {
-
-                for (int j = 0; j < this.sponsors_list.get(i).getSize(); j++) {
-                    // Add group
-                    SponsorGroupAdapter sga = new SponsorGroupAdapter(this.sponsors_list, this);
-                    ListViewSponsors.setAdapter(sga);
-                }
-
-            }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Back button.
+                this.finish();
+                return (true);
         }
 
+        return super.onOptionsItemSelected(item);
     }
 
 }

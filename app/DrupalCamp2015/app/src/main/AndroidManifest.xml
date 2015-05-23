@@ -16,14 +16,12 @@
             android:label="@string/app_label" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".SponsorActivity"
-            android:label="@string/title_activity_sponsor_form"
-            android:parentActivityName=".MainActivity" >
+            android:label="@string/title_activity_sponsor" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pl.drupalcampwroclaw.drupalcamp2015.MainActivity" />
@@ -31,6 +29,9 @@
         <activity
             android:name=".RoomsActivity"
             android:label="@string/title_activity_rooms" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pl.drupalcampwroclaw.drupalcamp2015.MainActivity" />
         </activity>
     </application>
 

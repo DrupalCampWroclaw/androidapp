@@ -47,7 +47,7 @@ public class SessionAdapter extends ArrayAdapter<Session> {
         View v = convertView;
         if (v == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inflater.inflate(R.layout.list_item, null);
+            v = inflater.inflate(R.layout.list_item_session, null);
         }
 
         Session session = itemList.get(position);
