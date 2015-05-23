@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">DrupalCamp Wrocław 2015</string>
-    <string name="app_label">DrupalCamp</string>
+    <string name="app_label">DrupalCamp 2015</string>
 
     <string name="refresh_label">Odśwież</string>
     <string name="action_settings">Konfiguracja</string>
