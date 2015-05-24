@@ -1,9 +1,11 @@
 package pl.drupalcampwroclaw.drupalcamp2015;
 
 import android.app.ProgressDialog;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,7 +19,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import pl.drupalcampwroclaw.drupalcamp2015.json.ConnectionDetector;
@@ -25,7 +29,7 @@ import pl.drupalcampwroclaw.drupalcamp2015.json.JSONParser;
 import pl.drupalcampwroclaw.drupalcamp2015.others.ErrorMessage;
 import pl.drupalcampwroclaw.drupalcamp2015.sessions.Session;
 import pl.drupalcampwroclaw.drupalcamp2015.sessions.SessionAdapter;
-import pl.drupalcampwroclaw.drupalcamp2015.sponsors.SharedPreference;
+import pl.drupalcampwroclaw.drupalcamp2015.others.SharedPreference;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -41,6 +45,9 @@ public class MainActivity extends ActionBarActivity {
 
     // Error message.
     ErrorMessage error = new ErrorMessage(MainActivity.this);
+
+    // Conference dates.
+    private String[] session_days;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +109,28 @@ public class MainActivity extends ActionBarActivity {
         String sessions_sunday_label = getString(R.string.sunday);
         tabSpec.setIndicator(sessions_sunday_label);
         tabHost.addTab(tabSpec);
+    }
+
+    /**
+     * Change position tab.
+     * If date 2015-05-30 to change location on Saturday tab.
+     */
+    private void onSelectedTabs() {
+        if (this.session_days instanceof String[] && this.session_days.length != 0) {
+
+            // Today's date. Format: 2015-05-01.
+            String date_now = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
+            for (int i = 0; i < this.session_days.length; i++) {
+                if (this.session_days[i].contains(date_now) == true) {
+                    TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
+
+                    // Change location tab.
+                    tabHost.setCurrentTab(i);
+                    return;
+                }
+            }
+        }
     }
 
     @Override
@@ -204,6 +233,9 @@ public class MainActivity extends ActionBarActivity {
 
             // Flag - refresh list.
             refresh = false;
+
+            // Change position tab.
+            onSelectedTabs();
         }
 
         @Override
@@ -238,6 +270,9 @@ public class MainActivity extends ActionBarActivity {
                 // All sessions (group by day).
                 JSONArray days = json.getJSONArray("sessions_data");
 
+                // Conference dates.
+                session_days = new String[days.length()];
+
                 for (int day = 0; day < days.length(); day++) {
                     JSONObject items = null;
                     try {
@@ -247,6 +282,9 @@ public class MainActivity extends ActionBarActivity {
                         e.printStackTrace();
                         error.setError(300);
                     }
+
+                    // Add date session.
+                    session_days[day] = items.getString("day");
 
                     JSONArray ses = items.getJSONArray("sessions");
                     int ses_count = ses.length();

@@ -10,4 +10,7 @@
     <!-- Font size -->
     <dimen name="font_size_h1">16sp</dimen>
 
+    <!-- Size -->
+    <dimen name="sponsor_logo_height">48dp</dimen>
+
 </resources>

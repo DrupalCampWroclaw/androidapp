@@ -21,4 +21,16 @@ public class RoomsActivity extends ActionBarActivity {
         setContentView(img);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Back button.
+                this.finish();
+                return (true);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
