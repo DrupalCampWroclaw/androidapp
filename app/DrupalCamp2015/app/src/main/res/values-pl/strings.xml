@@ -10,7 +10,7 @@
     <string name="action_settings">Konfiguracja</string>
 
     <string name="refresh_data_message">Listy zostały zaktualizowane</string>
-    <string name="loading_sessions_message">Odświeżam liste sesji...</string>
+    <string name="loading_sessions_message">Odświeżam listę sesji...</string>
 
     <string name="friday">Piątek</string>
     <string name="saturday">Sobota</string>
