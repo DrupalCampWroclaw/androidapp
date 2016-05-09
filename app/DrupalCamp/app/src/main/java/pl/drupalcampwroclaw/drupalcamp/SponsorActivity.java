@@ -39,26 +39,17 @@ public class SponsorActivity extends ActionBarActivity {
         items.add(new SponsorItem("Droptica", R.drawable.logo_droptica));
 
         // Gold.
-        String gold_name = getString(R.string.sponsor_gold);
-        items.add(new GroupSponsorsItem(gold_name));
-        items.add(new SponsorItem("BlueOK",  R.drawable.logo_blueok));
+        // String gold_name = getString(R.string.sponsor_gold);
+        // items.add(new GroupSponsorsItem(gold_name));
 
         // Bronze.
-        String bronze_name = getString(R.string.sponsor_bronze);
-        items.add(new GroupSponsorsItem(bronze_name));
-        items.add(new SponsorItem("KeyCDN",  R.drawable.logo_keycdn));
-
-        // Graphics sponsor.
-        String graphics_name = getString(R.string.sponsor_graphics);
-        items.add(new GroupSponsorsItem(graphics_name));
-        items.add(new SponsorItem("X-Coding IT Studio",  R.drawable.logo_xcoding));
+        // String bronze_name = getString(R.string.sponsor_bronze);
+        // items.add(new GroupSponsorsItem(bronze_name));
 
         // Prize.
         String price_name = getString(R.string.sponsor_prize);
         items.add(new GroupSponsorsItem(price_name));
-        items.add(new SponsorItem("DigitalOcean",  R.drawable.logo_digitalocean));
         items.add(new SponsorItem("Helion.pl",  R.drawable.logo_helion));
-        items.add(new SponsorItem("JetBrains PhpStorm",  R.drawable.logo_phpstorm));
 
         return this.items;
     }
